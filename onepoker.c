@@ -13,6 +13,9 @@ typedef struct {
 } Player;
 
 char random_card(char e1, char e2, char e3) {
+    if (e1 == 0) e1 = -1;
+    if (e2 == 0) e2 = -1;
+    if (e3 == 0) e3 = -1;
     char card;
     do {
         card = rand() % DECK_SIZE;
@@ -70,9 +73,9 @@ int main() {
     printf("# ONE POKER #\n");
     while (player_card == 1 || player_card == 2) {
 char select = 0;
-if (p1.c1 == 0) p1.c1 = random_card(-1, -1, -1);
-        if (p1.c2 == 0) p1.c2 = random_card(p1.c1, -1, -1);
-        if (p2.c1 == 0) p2.c1 = random_card(p1.c1, p1.c2, -1);
+if (p1.c1 == 0) p1.c1 = random_card(p1.c2, p2.c1, p2.c2);
+        if (p1.c2 == 0) p1.c2 = random_card(p1.c1, p2.c1, p2.c2);
+        if (p2.c1 == 0) p2.c1 = random_card(p1.c1, p1.c2, p2.c2);
         if (p2.c2 == 0) p2.c2 = random_card(p1.c1, p1.c2, p2.c1);
 
 printf("Your hand: ");
@@ -90,8 +93,8 @@ printf("Player plays card %s\n", selectc(c1));
 printf("Player 2 plays %s\n", selectc(c2));
 
         char result = duel(c1, c2);
-        if (result == 1) {p1.w+=1; printf("Player 1 wins!");}
-        else if (result == 2) {p2.w+=1; printf("Player 2 wins!");}
+        if (result == 1) {p1.w++; printf("Player 1 wins!");}
+        else if (result == 2) {p2.w++; printf("Player 2 wins!");}
         else printf("It's a tie!");
         printf(" [%d/%d]\n\n",p1.w,p2.w);
 
